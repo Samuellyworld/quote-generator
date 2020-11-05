@@ -1,5 +1,7 @@
 // grabbing our id(s) from html
 
+// container, quote text, authortext, twitter btn, new Quotebtn, loader
+
 const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
@@ -7,13 +9,13 @@ const twitterBtn = document.getElementById('twitter');
 const newQuoteBtn = document.getElementById('new-quote');
 const loader = document.getElementById('loader');
 
-// show loading
+// show loading in quote-container
 function showLoadingSpinner() {
     loader.hidden =false;
     quoteContainer.hidden =true;
 }
 
-// hide loading
+// hide loading in quote-container
 function removeLoadingSpinner() {
     if(!loader.hidden) {
         quoteContainer.hidden =false;
@@ -23,6 +25,7 @@ function removeLoadingSpinner() {
 
 // get quote from API
 async function getQuote() {
+//   show load spinner first run
     showLoadingSpinner();
     // we need to use a proxy URL to make our Api call in order to avoid error
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
@@ -52,9 +55,12 @@ async function getQuote() {
 
 // twitter functionality
 function tweetQuote () {
+//     grabbing     quote and author inner text from getQuote which is gotten from api and already reassigned to
     const quote = quoteText.innerText;
     const author = authorText.innerText;
+//     using template strings to send quote and author to twitter
     const twitterUrl = `https://twitter.com/intent/tweet?text=${quote} - ${author}`
+//     using another window tab instead of the current homepage;
     window.open(twitterUrl, '_blank');
 }
 // add EventListener 
